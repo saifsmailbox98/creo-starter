@@ -1,6 +1,6 @@
 import {Button} from "@trycreo/ui/dist/src/components/ui/button";
 import {dummyAction} from "./actions";
-
+import {ParentLink} from "@trycreo/ui/dist/src/components/ui/parent-link";
 import {
     Checkbox,
     FileInput,
@@ -11,13 +11,12 @@ import {
     Switch,
     Textarea,
 } from "@trycreo/ui/dist/src/components/ui/form/index";
-import {ParentLink} from "@/tools/kyc-form/parent-link";
 
 
 async function MyForm() {
   return (
     <div className="p-4 w-1/2 mx-auto place-items-center bg-background mt-8">
-        <ParentLink relativePath="/tools/user-profiles?some=value&hello=world" label="Click here for User Profiles" />
+        <ParentLink relativePath="/tools/user-profiles?some=value&hello=world" label="Click here for User Profiles 2" />
       <Form action={dummyAction}>
         <Input
             name="fullName"
