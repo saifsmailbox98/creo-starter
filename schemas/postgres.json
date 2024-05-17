@@ -1,0 +1,102 @@
+{
+  "public": {
+    "tickets": {
+      "columns": [
+        {
+          "name": "ticket_id",
+          "type": "CHAR(4)",
+          "nullable": true,
+          "default": null
+        },
+        {
+          "name": "customer_name",
+          "type": "VARCHAR(100)",
+          "nullable": true,
+          "default": null
+        },
+        {
+          "name": "email",
+          "type": "VARCHAR(100)",
+          "nullable": true,
+          "default": null
+        },
+        {
+          "name": "description",
+          "type": "TEXT",
+          "nullable": true,
+          "default": null
+        },
+        {
+          "name": "priority",
+          "type": "VARCHAR(10)",
+          "nullable": true,
+          "default": null
+        },
+        {
+          "name": "status",
+          "type": "VARCHAR(20)",
+          "nullable": true,
+          "default": null
+        },
+        {
+          "name": "assigned_to",
+          "type": "VARCHAR(100)",
+          "nullable": true,
+          "default": null
+        }
+      ],
+      "primary_keys": [
+        "name",
+        "constrained_columns"
+      ],
+      "foreign_keys": []
+    },
+    "applicants": {
+      "columns": [
+        {
+          "name": "id",
+          "type": "INTEGER",
+          "nullable": false,
+          "default": "nextval('\"public\".applicants_id_seq'::regclass)"
+        },
+        {
+          "name": "name",
+          "type": "VARCHAR(100)",
+          "nullable": false,
+          "default": null,
+          "primary_key": true
+        },
+        {
+          "name": "email",
+          "type": "VARCHAR(255)",
+          "nullable": false,
+          "default": null
+        },
+        {
+          "name": "phone",
+          "type": "VARCHAR(20)",
+          "nullable": true,
+          "default": null
+        },
+        {
+          "name": "status",
+          "type": "VARCHAR(20)",
+          "nullable": false,
+          "default": null
+        },
+        {
+          "name": "date_applied",
+          "type": "DATE",
+          "nullable": false,
+          "default": "CURRENT_DATE"
+        }
+      ],
+      "primary_keys": [
+        "constrained_columns",
+        "name",
+        "comment"
+      ],
+      "foreign_keys": []
+    }
+  }
+}

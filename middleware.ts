@@ -1,10 +1,18 @@
 import {type NextRequest, NextResponse} from "next/server";
 import {jwtVerify} from "jose";
 
+
 export async function middleware(request: NextRequest) {
 
-    if (isTool(request)) {
-        return AppMiddleware(request);
+    if (isProduction()) {
+        if (isTool(request)) {
+            return AppMiddleware(request);
+        }
+        if (isErrorPage(request)) {
+            return NextResponse.next();
+        } else {
+            return authenticationFailedResponse(request);
+        }
     }
     return NextResponse.next();
 }
@@ -31,23 +39,40 @@ export async function AppMiddleware(request: NextRequest) {
     const token = request.nextUrl.searchParams.get("token");
     if (!token) return authenticationFailedResponse(request);
     const secretKey = process.env.CREO_SHARED_SECRET_KEY;
-    if (!secretKey) return authenticationFailedResponse(request);
+    if (!secretKey) {
+        console.log("CREO_SHARED_SECRET_KEY not set")
+        return authenticationFailedResponse(request);
+    }
     try {
         const decodedToken = await verify(token, secretKey);
         const {toolName} = decodedToken;
-        if (slug !== toolName)
+        if (slug !== toolName) {
+            console.log("Invalid toolname");
             return authenticationFailedResponse(request);
-        if (!decodedToken)
+        }
+        if (!decodedToken) {
+            console.log("Invalid token")
             return authenticationFailedResponse(request);
+        }
         return NextResponse.next();
     } catch (err) {
+        console.log("Error decoding token")
         return authenticationFailedResponse(request);
     }
 }
 
 function isTool(request: NextRequest) {
     const {key} = parse(request);
-    return process.env.NODE_ENV === "production" && key === "tools";
+    return key === "tools";
+}
+
+function isErrorPage(request: NextRequest) {
+    const {key} = parse(request);
+    return key === "error";
+}
+
+function isProduction() {
+    return process.env.NODE_ENV === "production";
 }
 
 async function verify(token: string, secret: string) {

@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { GeistSans } from "geist/font/sans";
+import { cn } from "@trycreo/ui/dist/src/lib/utils";
+
 import "@trycreo/ui/dist/index.css";
 import "./globals.css";
-
-const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Creo | Local Starter",
@@ -17,8 +17,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>
-        <div className="bg-secondary min-h-screen">{children}</div>
+      <body className={cn("bg-secondary min-h-screen", GeistSans.className)}>
+        <main>{children}</main>
       </body>
     </html>
   );
