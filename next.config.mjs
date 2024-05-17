@@ -1,6 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-    transpilePackages: ["@trycreo/ui"],
+  transpilePackages: ["@trycreo/ui"],
+  basePath: "/preview",
+  assetPrefix: "/preview",
 };
 
 export default nextConfig;
